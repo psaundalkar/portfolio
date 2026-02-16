@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getAssetUrl, assetPaths } from '../data/assetUrls';
 import { courses, courseList } from '../data/courses';
 import EnrollmentModal from '../components/EnrollmentModal';
 import './CoursePage.css';
@@ -92,23 +91,6 @@ const CoursePage = () => {
                     >
                         {course.tagline}
                     </motion.p>
-
-                    {course.slug === 'masterclass' && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
-                            className="video-container"
-                        >
-                            <div className="video-placeholder">
-                                <video
-                                    src={getAssetUrl(assetPaths.langzaVid)}
-                                    controls
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                />
-                            </div>
-                        </motion.div>
-                    )}
                     <motion.button
                         type="button"
                         onClick={() => course.price && setShowEnrollmentModal(true)}
