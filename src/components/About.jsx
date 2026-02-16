@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import './About.css';
-import headshotPlaceholder from '../assets/potrait.jpeg';
+import headshotPlaceholder from '../assets/potrait.webp';
 
 const About = () => {
     return (

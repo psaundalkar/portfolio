@@ -3,17 +3,17 @@ import { motion } from 'framer-motion';
 import { photos } from '../data/photos';
 import './Gallery.css';
 
-// Import assets for home grid (same as in photos.js)
-import houseImg from '../assets/abandoned_house.png';
-import geminidsImg from '../assets/geminids.png';
-import hagarImg from '../assets/hagar.png';
-import langzaImg from '../assets/langza.png';
-import maceImg from '../assets/mace_new.png';
-import milkyImg from '../assets/milkydate2.png';
-import pangongImg from '../assets/pangong1.png';
-import tsoImg from '../assets/tso1.png';
-import cometTeleImg from '../assets/comet-tele.jpeg';
-import tsoTrailsImg from '../assets/tso_trails.jpeg';
+// Import local WebP assets for home grid
+import houseImg from '../assets/abandoned_house.webp';
+import geminidsImg from '../assets/geminids.webp';
+import hagarImg from '../assets/hagar.webp';
+import langzaImg from '../assets/langza.webp';
+import maceImg from '../assets/mace_new.webp';
+import milkyImg from '../assets/milkydate2.webp';
+import pangongImg from '../assets/pangong1.webp';
+import tsoImg from '../assets/tso1.webp';
+import cometTeleImg from '../assets/comet-tele.webp';
+import tsoTrailsImg from '../assets/tso_trails.webp';
 
 // photoId = id in photos.js (single source of truth for titles)
 const highlightPhotoIds = [3, 1, 6, 17, 4, 7, 5, 11, 9, 16];

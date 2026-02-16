@@ -1,32 +1,28 @@
-// Landscape (images)
-import langzaImg from '../assets/langza.png';
-import cometTsuImg from '../assets/comet-tsu.jpeg';
-import maceImg from '../assets/mace_new.png';
-import pangongImg from '../assets/pangong1.png';
-import milkywayArchImg from '../assets/milkyway-arch.jpg';
-import nubraImg from '../assets/nubra.png';
+// Local WebP images
+import langzaImg from '../assets/langza.webp';
+import cometTsuImg from '../assets/comet-tsu.webp';
+import maceImg from '../assets/mace_new.webp';
+import pangongImg from '../assets/pangong1.webp';
+import milkywayArchImg from '../assets/milkyway-arch.webp';
+import nubraImg from '../assets/nubra.webp';
 
-// Portrait (images)
-import tsoImg from '../assets/tso1.png';
-import milkyImg from '../assets/milkydate2.png';
-import hagarImg from '../assets/hagar.png';
-import cometVerticalImg from '../assets/comet-vertical.jpeg';
-import cometTeleImg from '../assets/comet-tele.jpeg';
-import cb14Img from '../assets/CB-14.jpeg';
-import houseImg from '../assets/abandoned_house.png';
+import tsoImg from '../assets/tso1.webp';
+import milkyImg from '../assets/milkydate2.webp';
+import hagarImg from '../assets/hagar.webp';
+import cometVerticalImg from '../assets/comet-vertical.webp';
+import cometTeleImg from '../assets/comet-tele.webp';
+import cb14Img from '../assets/CB-14.webp';
+import houseImg from '../assets/abandoned_house.webp';
 
-// Deep Sky (images)
-import andromedaImg from '../assets/andromeda.jpeg';
-import orionImg from '../assets/orion.jpeg';
+import andromedaImg from '../assets/andromeda.webp';
+import orionImg from '../assets/orion.webp';
 
-// Star Trails (images)
-import pangongTrailImg from '../assets/pangong_trail.jpeg';
-import shantiTsupaImg from '../assets/shanti_tsupa.jpeg';
-import tsoTrailsImg from '../assets/tso_trails.jpeg';
+import pangongTrailImg from '../assets/pangong_trail.webp';
+import shantiTsupaImg from '../assets/shanti_tsupa.webp';
+import tsoTrailsImg from '../assets/tso_trails.webp';
 
-// Meteor Shower (images)
-import geminidsImg from '../assets/geminids.png';
-import perseidsImg from '../assets/perseids.jpeg';
+import geminidsImg from '../assets/geminids.webp';
+import perseidsImg from '../assets/perseids.webp';
 
 export const photos = [
     // ——— Landscape ———

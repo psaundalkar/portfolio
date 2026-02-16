@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import pangongImg from '../assets/pangong1.png';
+import pangongImg from '../assets/pangong1.webp';
 import './Hero.css';
 
 const Hero = () => {
