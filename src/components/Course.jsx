@@ -17,7 +17,7 @@ const Course = () => {
                 >
                     <h2>Courses</h2>
                     <p>
-                        From DSLR masterclass to mobile astrophotography—learn to capture the night sky at your level.
+                        From DSLR masterclass to mobile astrophotography, learn to capture the night sky at your level.
                     </p>
                 </motion.div>
 

@@ -7,7 +7,6 @@ export const courses = {
     price: 9999,
     currency: 'INR',
     priceLabel: '₹9,999',
-    description: 'Unlock the secrets of the night sky. From gear selection to advanced post-processing—Milky Way, star trails, timelapse, and deep sky.',
     features: [
       { icon: '📷', title: 'DSLR + Tripod Only', text: 'No fancy gear required. Start with what you have.' },
       { icon: '🌌', title: 'Milky Way Editing', text: 'Professional workflow for popping the galactic core.' },
@@ -115,7 +114,8 @@ export const courses = {
     price: 999,
     currency: 'INR',
     priceLabel: '₹999',
-    description: 'One hour to Milky Way shots that rival DSLRs. Pocket gear setup, 3 dead-simple capture methods, and a pro Lightroom Mobile workflow—plus Mumbai dark-site GPS and monetization tips.',
+    description: 'Unlock the secrets of the night sky. From gear selection to advanced post-processing, Milky Way, star trails, timelapse, and deep sky.',
+    description: 'One hour to Milky Way shots that rival DSLRs. Pocket gear setup, 3 dead-simple capture methods, and a pro Lightroom Mobile workflow, plus Mumbai dark-site GPS and monetization tips.',
     features: [
       { icon: '📱', title: 'Just Your Phone', text: 'No paid apps required.' },
       { icon: '🌌', title: 'DSLR-Quality Stacks', text: 'NightCap stacking and iPhone Night Mode for noise-free skies.' },

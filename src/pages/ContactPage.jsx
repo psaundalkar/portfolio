@@ -70,7 +70,7 @@ const ContactPage = () => {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="contact-note"
             >
-                Prefer a call? Use the same number — 9930108404
+                Prefer a call? Use the same number 9930108404
             </motion.p>
         </div>
     );

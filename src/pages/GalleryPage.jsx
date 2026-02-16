@@ -69,7 +69,7 @@ const GalleryPage = () => {
                 ))}
             </div>
 
-            {/* Photo Grid — Timelapse / Portrait get section-specific layout */}
+            {/* Photo Grid - Timelapse / Portrait get section-specific layout */}
             <motion.div
                 layout
                 className={`photo-grid${activeCategory === 'Timelapse' ? ' photo-grid--timelapse' : ''}${activeCategory === 'Portrait' ? ' photo-grid--portrait' : ''}`}

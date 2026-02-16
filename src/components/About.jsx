@@ -46,16 +46,16 @@ const About = () => {
 
                     <div className="about-bio">
                         <p>
-                            I’ve always believed that the night sky isn’t just something we look at — it’s something we’re deeply connected to. Every star, every nebula, every distant galaxy is a reminder that we’re all made of the same cosmic dust.
+                            I’ve always believed that the night sky isn’t just something we look at, it’s something we’re deeply connected to. Every star, every nebula, every distant galaxy is a reminder that we’re all made of the same cosmic dust.
                         </p>
                         <p>
-                            My journey into astrophotography began with simple curiosity — a desire to capture what can’t be seen with the naked eye. What started as a late-night hobby under the faint glow of my first camera turned into a lifelong pursuit to document the universe from Earth’s most remote and beautiful corners. From the tranquil peaks of the Himalayas to the still reflections of Pangong Lake, I’ve spent countless nights chasing the Milky Way, waiting for meteors, and capturing the silent poetry of the cosmos.
+                            My journey into astrophotography began with simple curiosity, a desire to capture what can’t be seen with the naked eye. What started as a late-night hobby under the faint glow of my first camera turned into a lifelong pursuit to document the universe from Earth’s most remote and beautiful corners. From the tranquil peaks of the Himalayas to the still reflections of Pangong Lake, I’ve spent countless nights chasing the Milky Way, waiting for meteors, and capturing the silent poetry of the cosmos.
                         </p>
                         <p>
-                            Through my lens, I aim to bridge art and science — to make the infinite feel intimate. Each image is more than a photograph; it’s a window into time, light, and wonder.
+                            Through my lens, I aim to bridge art and science, to make the infinite feel intimate. Each image is more than a photograph; it’s a window into time, light, and wonder.
                         </p>
                         <p>
-                            Whether it’s the first glow of the Orion, the trails of a rare comet over the mountains, or the timeless arc of our galaxy, I hope my work inspires you to look up, pause, and remember — we are all made of stardust.
+                            Whether it’s the first glow of the Orion, the trails of a rare comet over the mountains, or the timeless arc of our galaxy, I hope my work inspires you to look up, pause, and remember, we are all made of stardust.
                         </p>
                     </div>
                 </motion.div>

@@ -35,7 +35,7 @@ const CoursePage = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="course-subtitle"
                         >
-                            From DSLR masterclass to mobile—start at your level.
+                            From DSLR masterclass to mobile, start at your level.
                         </motion.p>
                     </div>
                 </header>
