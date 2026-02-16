@@ -162,10 +162,11 @@ const CoursePage = () => {
                         {course.price && <span className="period"> one-time</span>}
                     </div>
                     <ul>
-                        <li>✅ Instant access to all {course.curriculum.length} lessons</li>
+                        <li>✅ Access to all {course.curriculum.length} lessons</li>
+                        <li>✅ Bonus: RAW files for practice</li>
+                        <li>✅ Printable cheat sheet</li>
                         {course.slug === 'masterclass' && (
                             <>
-                                <li>✅ Bonus: RAW files for practice</li>
                                 <li>✅ Private Discord community access</li>
                             </>
                         )}
@@ -179,7 +180,6 @@ const CoursePage = () => {
                     >
                         {course.price ? 'Enroll Now' : 'Coming Soon'}
                     </button>
-                    {course.price && <p className="guarantee">30-Day Money-Back Guarantee</p>}
                 </div>
             </section>
 

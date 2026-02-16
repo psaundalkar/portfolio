@@ -52,6 +52,8 @@ const Navbar = () => {
                     </NavLink>
                 </div>
             </div>
+            {/* Mobile backdrop: closes menu when tapping outside the drawer */}
+            {menuOpen && <div className="nav-backdrop" onClick={closeMenu} aria-hidden="true" />}
         </nav>
     );
 };

@@ -7,6 +7,7 @@ export const courses = {
     price: 9999,
     currency: 'INR',
     priceLabel: '₹9,999',
+    description: 'A complete step-by-step path to go from first night-sky photo to confident astrophotographer. Learn how to plan shoots, choose and use your DSLR gear, capture clean Milky Way, star-trail and timelapse sequences, and build a professional post-processing workflow for print-ready, portfolio-grade images.',
     features: [
       { icon: '📷', title: 'DSLR + Tripod Only', text: 'No fancy gear required. Start with what you have.' },
       { icon: '🌌', title: 'Milky Way Editing', text: 'Professional workflow for popping the galactic core.' },
@@ -114,13 +115,12 @@ export const courses = {
     price: 999,
     currency: 'INR',
     priceLabel: '₹999',
-    description: 'Unlock the secrets of the night sky. From gear selection to advanced post-processing, Milky Way, star trails, timelapse, and deep sky.',
-    description: 'One hour to Milky Way shots that rival DSLRs. Pocket gear setup, 3 dead-simple capture methods, and a pro Lightroom Mobile workflow, plus Mumbai dark-site GPS and monetization tips.',
+    description: 'One focused session to go from first mobile night-sky photo to share-worthy Milky Way and star-trail shots. Learn simple gear setups, three easy capture methods, and a practical Lightroom Mobile workflow so you can shoot, edit, and post from anywhere in the world.',
     features: [
       { icon: '📱', title: 'Just Your Phone', text: 'No paid apps required.' },
       { icon: '🌌', title: 'DSLR-Quality Stacks', text: 'NightCap stacking and iPhone Night Mode for noise-free skies.' },
       { icon: '⚡', title: 'Shoot Tonight', text: 'Shoot tonight → post tomorrow. Viral results guaranteed.' },
-      { icon: '🎁', title: 'Bonus Downloads', text: 'Cheat sheet, RAW phone files, Lightroom presets, Mumbai dark-site coordinates.' },
+      { icon: '🎁', title: 'Bonus Downloads', text: 'Cheat sheet, RAW phone files, and star maps to help you plan dark-sky shoots.' },
     ],
     curriculum: [
       {
@@ -129,13 +129,13 @@ export const courses = {
         objective: 'Go from zero to shooting and editing Milky Way and star-trail shots on your phone, then sharing and monetizing them.',
         topics: [
           'Why mobile astro works: phone vs DSLR, and the potential of phone shots.',
-          'Pocket gear: NightCap Camera (stacking), PhotoPills (Milky Way timing), Lightroom Mobile, wide-angle clip-on lens, Mumbai dark-site GPS list.',
+          'Pocket gear: NightCap Camera (stacking), PhotoPills (Milky Way timing), Lightroom Mobile, wide-angle clip-on lens, and example dark-sky locations.',
           'Planning: Bortle 4+ locations (e.g. Malshej Ghat, Torna Fort), Milky Way position, moon-phase rules, foreground scouting with Google Earth.',
           'Capture: iPhone Night Mode auto-stack, NightCap multi-frame stack for clean skies, and a simple star-trails method.',
           'Editing in Lightroom Mobile: Enhance (AI denoise), exposure, dehaze, HSL and sky gradient, star sharpening, export for Instagram.',
           'Composition: rule of thirds, phone light painting, vertical Reels format, panorama stacks.',
-          'Monetize: print sales, growing on Instagram, Mumbai GPS list, Discord community, pro wallpaper pack.',
-          'Bonus: 1-page cheat sheet, practice RAW files, Lightroom preset pack, dark-site coordinates.',
+          'Monetize: print sales, growing on Instagram, finding and sharing dark-sky locations, Discord community, pro wallpaper pack.',
+          'Bonus: 1-page cheat sheet, practice RAW files, and dark-site planning checklist.',
         ],
         activity: 'Plan one shoot with PhotoPills, capture using at least one method, edit in Lightroom Mobile, and share or list one monetization step you will take.',
       },

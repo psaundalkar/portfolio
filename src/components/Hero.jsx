@@ -24,7 +24,7 @@ const Hero = () => {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="hero-title"
                 >
-                    Prashant Saundalkar
+                    The Art of Astrophotography
                 </motion.h1>
 
                 <motion.p
