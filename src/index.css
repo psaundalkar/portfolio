@@ -1,0 +1,83 @@
+:root {
+    --bg-color: #030303;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --accent: #6366f1;
+    /* Indigo 500 */
+    --accent-secondary: #a855f7;
+    /* Purple 500 */
+    --accent-glow: rgba(99, 102, 241, 0.5);
+    --font-main: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --gradient-text: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Section heading between About and Gallery */
+.work-heading-section {
+    padding: 64px 20px 20px;
+    background: var(--bg-color);
+}
+
+.work-heading-section .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin: 0;
+    background-image: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--accent);
+}
+
+@media (max-width: 600px) {
+    .work-heading-section {
+        padding: 40px 16px 16px;
+    }
+
+    .work-heading-section .section-title {
+        font-size: 1.75rem;
+    }
+}
