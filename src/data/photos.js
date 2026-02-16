@@ -1,5 +1,5 @@
 // Local WebP images
-import langzaImg from '../assets/langza.webp';
+import langzaImg from '../assets/langza.png';
 import cometTsuImg from '../assets/comet-tsu.webp';
 import maceImg from '../assets/mace_new.webp';
 import pangongImg from '../assets/pangong1.webp';
