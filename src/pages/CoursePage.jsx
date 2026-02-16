@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { courses, courseList } from '../data/courses';
@@ -11,6 +11,11 @@ const CoursePage = () => {
     const course = slug && courses[slug] ? courses[slug] : null;
     const [expandedLesson, setExpandedLesson] = useState(null);
     const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
+
+    // Always scroll to top when navigating to a course page
+    useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }, [slug]);
 
     const toggleLesson = (id) => {
         setExpandedLesson(expandedLesson === id ? null : id);
