@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import introVideo from '../assets/Videos/Milkyway_langza2_h264-420_Rec.709L_4KUHD_29.97_HQ.mp4';
+import { getAssetUrl, assetPaths } from '../data/assetUrls';
 import { courses, courseList } from '../data/courses';
 import EnrollmentModal from '../components/EnrollmentModal';
 import './CoursePage.css';
@@ -101,7 +101,11 @@ const CoursePage = () => {
                             className="video-container"
                         >
                             <div className="video-placeholder">
-                                <video src={introVideo} controls style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <video
+                                    src={getAssetUrl(assetPaths.langzaVid)}
+                                    controls
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                />
                             </div>
                         </motion.div>
                     )}
