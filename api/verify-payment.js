@@ -37,15 +37,23 @@ const getGoogleSheetsClient = async () => {
   return {
     spreadsheetId,
     sheets: google.sheets({ version: 'v4', auth }),
-    sheetName: process.env.GOOGLE_SHEETS_SHEET_NAME || 'Enrollments',
   };
+};
+
+const resolveSheetTabName = (courseSlug) => {
+  const dslrTab = process.env.GOOGLE_SHEETS_TAB_DSLR || 'DSLR';
+  const smartphoneTab = process.env.GOOGLE_SHEETS_TAB_SMARTPHONE || 'Smartphone';
+
+  if (courseSlug === 'mobile') return smartphoneTab;
+  return dslrTab;
 };
 
 const appendEnrollmentToSheet = async (enrollmentData) => {
   const client = await getGoogleSheetsClient();
   if (!client) return { success: false, skipped: true, error: 'Google Sheets not configured' };
 
-  const { spreadsheetId, sheets, sheetName } = client;
+  const { spreadsheetId, sheets } = client;
+  const sheetName = resolveSheetTabName(enrollmentData.courseSlug);
 
   const values = [
     [
