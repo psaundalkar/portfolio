@@ -29,7 +29,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { amount, currency, courseSlug, name, email, contact } = await readJsonBody(req);
+    const { amount, currency, courseSlug, name, email, contact, smartphone } = await readJsonBody(req);
 
     if (!amount || !currency || !courseSlug) {
       sendJson(res, 400, { error: 'Missing required fields' });
@@ -63,6 +63,7 @@ export default async function handler(req, res) {
         name,
         email,
         contact,
+        smartphone: smartphone || '',
       },
     });
 

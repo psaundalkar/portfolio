@@ -18,7 +18,7 @@ const loadRazorpayScript = () => {
 };
 
 const EnrollmentModal = ({ course, onClose }) => {
-  const [form, setForm] = useState({ name: '', email: '', phone: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', smartphone: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -45,6 +45,10 @@ const EnrollmentModal = ({ course, onClose }) => {
     }
     if (!form.phone.trim()) {
       setError('Please enter your phone number.');
+      return false;
+    }
+    if (course.slug === 'mobile' && !form.smartphone) {
+      setError('Please select your smartphone type.');
       return false;
     }
     return true;
@@ -116,6 +120,7 @@ const EnrollmentModal = ({ course, onClose }) => {
           name: form.name,
           email: form.email,
           contact: form.phone,
+          smartphone: course.slug === 'mobile' ? form.smartphone : undefined,
         }),
       });
       const data = await res.json();
@@ -212,6 +217,21 @@ const EnrollmentModal = ({ course, onClose }) => {
                     disabled={loading}
                   />
                 </label>
+                {course.slug === 'mobile' && (
+                  <label>
+                    Which smartphone you have? <span className="required">*</span>
+                    <select
+                      name="smartphone"
+                      value={form.smartphone}
+                      onChange={handleChange}
+                      disabled={loading}
+                    >
+                      <option value="">Select</option>
+                      <option value="iPhone">iPhone</option>
+                      <option value="Android">Android</option>
+                    </select>
+                  </label>
+                )}
                 {error && <p className="enrollment-error">{error}</p>}
                 <button type="submit" className="btn-buy-stripe" disabled={loading}>
                   {loading ? 'Opening payment…' : 'Proceed to Pay'}
