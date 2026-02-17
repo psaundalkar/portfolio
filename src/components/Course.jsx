@@ -37,10 +37,6 @@ const Course = () => {
                                 )}
                                 <h3>{course.title}</h3>
                                 <p className="course-card-desc">{course.description}</p>
-                                <div className="price-v2">{course.priceLabel}</div>
-                                <span className="guarantee-text">
-                                    {course.price ? 'Lifetime access + Updates' : 'Curriculum in development'}
-                                </span>
                                 <span className="btn-enroll-v2">View Course</span>
                             </Link>
                         </motion.div>

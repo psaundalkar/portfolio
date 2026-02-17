@@ -56,7 +56,6 @@ const CoursePage = () => {
                             >
                                 <h3>{c.title}</h3>
                                 <p>{c.description}</p>
-                                <div className="course-listing-price">{c.priceLabel}</div>
                                 <Link to={`/course/${c.slug}`} className="btn-enroll-hero">
                                     View Course
                                 </Link>
@@ -103,10 +102,45 @@ const CoursePage = () => {
                         whileTap={{ scale: 0.95 }}
                         className="btn-enroll-hero"
                     >
-                        Enroll Now{course.price ? ` – ${course.priceLabel}` : ''}
+                        Enroll Now
                     </motion.button>
                 </div>
             </header>
+
+            {course.examples && (
+                <section className={`course-examples ${course.slug === 'mobile' ? 'layout-mobile-course' : 'layout-masterclass'}`}>
+                    <motion.div
+                        className="examples-intro"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        {course.slug === 'mobile' ? (
+                            <p>You don't need expensive gear to capture the cosmos. Discover how your smartphone can turn the darkness into a canvas of light and color.</p>
+                        ) : (
+                            <p>If you own a DSLR and want to do something extraordinary beyond daytime photography, this course is designed for you. Step into the dark and discover a whole new world.</p>
+                        )}
+                    </motion.div>
+                    <h2>What You'll Learn to Capture</h2>
+                    <div className="examples-grid">
+                        {course.examples.map((ex, i) => (
+                            <motion.div
+                                key={i}
+                                className="example-card"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: i * 0.1 }}
+                                viewport={{ once: true }}
+                            >
+                                <img src={ex.image} alt={ex.caption} loading="lazy" />
+                                <div className="example-overlay">
+                                    <p>{ex.caption}</p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
+            )}
 
             <section className="course-features">
                 <div className="features-grid">
@@ -170,11 +204,6 @@ const CoursePage = () => {
                         <li>✅ Access to all {course.curriculum.length} lessons</li>
                         <li>✅ Bonus: RAW files for practice</li>
                         <li>✅ Printable cheat sheet</li>
-                        {course.slug === 'masterclass' && (
-                            <>
-                                <li>✅ Private Discord community access</li>
-                            </>
-                        )}
                         <li>✅ Lifetime updates</li>
                     </ul>
                     <button
