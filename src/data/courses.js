@@ -1,3 +1,12 @@
+ import exampleMilkywayArch from '../assets/milkyway-arch.webp';
+ import exampleTsoTrails from '../assets/tso_trails.webp';
+ import exampleCometTele from '../assets/comet-tele.webp';
+ import exampleLangza from '../assets/langza.webp';
+ import exampleAndromeda from '../assets/andromeda.webp';
+ import examplePerseids from '../assets/perseids.webp';
+ import exampleAvengers from '../assets/avengers.jpeg';
+ import exampleChandratalHandhold from '../assets/chandratal-handhold.jpeg';
+
 export const courses = {
   masterclass: {
     slug: 'masterclass',
@@ -15,12 +24,12 @@ export const courses = {
       { icon: '🔭', title: 'Deep Sky Widefield', text: 'Capture Andromeda and Orion without a telescope.' },
     ],
     examples: [
-      { image: '/src/assets/milkyway-arch.webp', caption: 'Capturing the grand arch of the Milky Way over the mountains.' },
-      { image: '/src/assets/tso_trails.webp', caption: 'The mesmerizing circular motion of stars around Polaris.' },
-      { image: '/src/assets/comet-tele.webp', caption: 'Zooming in on the celestial visitors passing through our solar system.' },
-      { image: '/src/assets/langza.webp', caption: 'Ancient structures meeting the timeless beauty of the galactic core.' },
-      { image: '/src/assets/andromeda.webp', caption: 'Our neighbor galaxy, captured with just a DSLR and a telephoto lens.' },
-      { image: '/src/assets/perseids.webp', caption: 'The magic of a meteor shower lighting up the night sky.' }
+      { image: exampleMilkywayArch, caption: 'Capturing the grand arch of the Milky Way over the mountains.' },
+      { image: exampleTsoTrails, caption: 'The mesmerizing circular motion of stars around Polaris.' },
+      { image: exampleCometTele, caption: 'Zooming in on the celestial visitors passing through our solar system.' },
+      { image: exampleLangza, caption: 'Ancient structures meeting the timeless beauty of the galactic core.' },
+      { image: exampleAndromeda, caption: 'Our neighbor galaxy, captured with just a DSLR and a telephoto lens.' },
+      { image: examplePerseids, caption: 'The magic of a meteor shower lighting up the night sky.' }
     ],
     curriculum: [
       {
@@ -131,8 +140,8 @@ export const courses = {
       { icon: '🎁', title: 'Bonus Downloads', text: 'Cheat sheet, RAW phone files, and star maps to help you plan dark-sky shoots.' },
     ],
     examples: [
-      { image: '/src/assets/avengers.jpeg', caption: 'Dramatic Milky Way portraits captured with a smartphone.' },
-      { image: '/src/assets/chandratal-handhold.jpeg', caption: 'The beauty of high-altitude night skies, captured without a tripod.' }
+      { image: exampleAvengers, caption: 'Dramatic Milky Way portraits captured with a smartphone.' },
+      { image: exampleChandratalHandhold, caption: 'The beauty of high-altitude night skies, captured without a tripod.' }
     ],
     curriculum: [
       {
