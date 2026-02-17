@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import Razorpay from 'razorpay';
 import nodemailer from 'nodemailer';
+import { google } from 'googleapis';
 
 const readJsonBody = async (req) => {
   const chunks = [];
@@ -16,6 +17,60 @@ const sendJson = (res, statusCode, body) => {
   res.statusCode = statusCode;
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(body));
+};
+
+const getGoogleSheetsClient = async () => {
+  const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
+  const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+
+  if (!spreadsheetId || !clientEmail || !privateKey) return null;
+
+  const auth = new google.auth.JWT({
+    email: clientEmail,
+    key: privateKey,
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  });
+
+  await auth.authorize();
+
+  return {
+    spreadsheetId,
+    sheets: google.sheets({ version: 'v4', auth }),
+    sheetName: process.env.GOOGLE_SHEETS_SHEET_NAME || 'Enrollments',
+  };
+};
+
+const appendEnrollmentToSheet = async (enrollmentData) => {
+  const client = await getGoogleSheetsClient();
+  if (!client) return { success: false, skipped: true, error: 'Google Sheets not configured' };
+
+  const { spreadsheetId, sheets, sheetName } = client;
+
+  const values = [
+    [
+      new Date().toISOString(),
+      enrollmentData.courseSlug,
+      enrollmentData.courseTitle,
+      enrollmentData.name,
+      enrollmentData.email,
+      enrollmentData.phone,
+      enrollmentData.amount,
+      enrollmentData.currency,
+      enrollmentData.orderId,
+      enrollmentData.paymentId,
+    ],
+  ];
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId,
+    range: `${sheetName}!A1`,
+    valueInputOption: 'USER_ENTERED',
+    insertDataOption: 'INSERT_ROWS',
+    requestBody: { values },
+  });
+
+  return { success: true };
 };
 
 const createTransporter = () => {
@@ -212,12 +267,26 @@ export default async function handler(req, res) {
       currency: order.currency,
     };
 
+    let sheetsWarning;
+    try {
+      const sheetResult = await appendEnrollmentToSheet(enrollmentData);
+      if (!sheetResult.success && !sheetResult.skipped) {
+        sheetsWarning = 'Payment verified but saving enrollment to sheet failed';
+      }
+      if (sheetResult.skipped) {
+        sheetsWarning = 'Payment verified but Google Sheets is not configured';
+      }
+    } catch (sheetError) {
+      console.error('Google Sheets append failed:', sheetError);
+      sheetsWarning = 'Payment verified but saving enrollment to sheet failed';
+    }
+
     const transporter = createTransporter();
     if (!transporter) {
       sendJson(res, 200, {
         verified: true,
         paymentId: razorpay_payment_id,
-        warning: 'Payment verified but email service is not configured on server',
+        warning: sheetsWarning || 'Payment verified but email service is not configured on server',
       });
       return;
     }
@@ -226,13 +295,18 @@ export default async function handler(req, res) {
 
     try {
       const info = await transporter.sendMail(mail);
-      sendJson(res, 200, { verified: true, paymentId: razorpay_payment_id, emailMessageId: info.messageId });
+      sendJson(res, 200, {
+        verified: true,
+        paymentId: razorpay_payment_id,
+        emailMessageId: info.messageId,
+        ...(sheetsWarning ? { warning: sheetsWarning } : {}),
+      });
     } catch (emailError) {
       console.error('Email sending failed:', emailError);
       sendJson(res, 200, {
         verified: true,
         paymentId: razorpay_payment_id,
-        warning: 'Payment verified but email sending failed',
+        warning: sheetsWarning ? `${sheetsWarning}. Email sending failed.` : 'Payment verified but email sending failed',
       });
     }
   } catch (error) {

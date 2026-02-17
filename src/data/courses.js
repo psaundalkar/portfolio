@@ -1,11 +1,11 @@
- import exampleMilkywayArch from '../assets/milkyway-arch.webp';
- import exampleTsoTrails from '../assets/tso_trails.webp';
- import exampleCometTele from '../assets/comet-tele.webp';
- import exampleLangza from '../assets/langza.webp';
- import exampleAndromeda from '../assets/andromeda.webp';
- import examplePerseids from '../assets/perseids.webp';
- import exampleAvengers from '../assets/avengers.jpeg';
- import exampleChandratalHandhold from '../assets/chandratal-handhold.jpeg';
+import exampleMilkywayArch from '../assets/milkyway-arch.webp';
+import exampleTsoTrails from '../assets/tso_trails.webp';
+import exampleCometTele from '../assets/comet-tele.webp';
+import exampleLangza from '../assets/langza.webp';
+import exampleAndromeda from '../assets/andromeda.webp';
+import examplePerseids from '../assets/perseids.webp';
+import exampleAvengers from '../assets/avengers.webp';
+import exampleChandratalHandhold from '../assets/chandratal-handhold.webp';
 
 export const courses = {
   masterclass: {
