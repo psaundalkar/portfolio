@@ -6,10 +6,19 @@ const sendJson = (res, statusCode, body) => {
   res.end(JSON.stringify(body));
 };
 
+const normalizePrivateKey = (value) => {
+  if (!value) return '';
+  let v = String(value).trim();
+  if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+    v = v.slice(1, -1);
+  }
+  return v.replace(/\\n/g, '\n');
+};
+
 const getAuth = async () => {
   const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
   const clientEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n');
+  const privateKey = normalizePrivateKey(process.env.GOOGLE_PRIVATE_KEY);
 
   if (!spreadsheetId || !clientEmail || !privateKey) {
     return { ok: false, error: 'Missing GOOGLE_SHEETS_SPREADSHEET_ID / GOOGLE_SERVICE_ACCOUNT_EMAIL / GOOGLE_PRIVATE_KEY' };
