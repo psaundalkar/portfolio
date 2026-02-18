@@ -17,6 +17,30 @@ const sendJson = (res, statusCode, body) => {
   res.end(JSON.stringify(body));
 };
 
+const serializeRazorpayError = (err) => {
+  if (!err) return null;
+  const e = err;
+
+  const razorpayPayload = e?.error || e?.response?.data?.error || null;
+  const details = {
+    name: e?.name,
+    message: e?.message,
+    statusCode: e?.statusCode,
+    code: razorpayPayload?.code || e?.code,
+    description: razorpayPayload?.description,
+    field: razorpayPayload?.field,
+    source: razorpayPayload?.source,
+    step: razorpayPayload?.step,
+    reason: razorpayPayload?.reason,
+  };
+
+  Object.keys(details).forEach((k) => {
+    if (details[k] === undefined) delete details[k];
+  });
+
+  return details;
+};
+
 const normalizePrivateKey = (value) => {
   if (!value) return '';
   let v = String(value).trim();
@@ -173,7 +197,14 @@ export default async function handler(req, res) {
       keyId: process.env.RAZORPAY_KEY_ID,
     });
   } catch (error) {
-    console.error('Error creating order:', error);
-    sendJson(res, 500, { error: error?.message || 'Failed to create order. Please try again.' });
+    const details = serializeRazorpayError(error);
+    console.error('Error creating order:', details || error);
+    sendJson(res, 500, {
+      error:
+        details?.description ||
+        details?.message ||
+        'Failed to create order. Please try again.',
+      ...(details ? { details } : {}),
+    });
   }
 }
