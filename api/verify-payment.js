@@ -122,26 +122,43 @@ const buildEnrollmentEmail = ({ name, email, courseTitle, courseSlug, paymentId 
     masterclass: {
       title: 'Astrophotography Masterclass',
       nextSteps: [
-        'Check your email inbox for course access details (sent within 24 hours)',
-        'Join our private Discord community (invite link will be emailed)',
-        'Download the course materials and RAW practice files',
-        'Start with Lesson 1: Essential DSLR Gear and Tripod Setup',
+        'You will receive the Zoom link and joining details on your email within 24 hours',
+        'Block your calendar for the live session schedule mentioned below',
+        'Download the course materials and RAW practice files (shared via email)',
+      ],
+      scheduleLines: [
+        'Batch 1 starts: 28 Feb (Saturday)',
+        'Schedule: Every weekend (Sat & Sun), one session per day',
+        'Total: 8 sessions across 4 weekends (≈ 1 month)',
+        'Time: 11:00 AM',
+        'Platform: Zoom',
+        'Recording: Included for all live sessions',
       ],
       supportEmail: process.env.SUPPORT_EMAIL || 'support@yourdomain.com',
     },
     mobile: {
       title: 'Mobile Astrophotography',
       nextSteps: [
-        'Check your email inbox for course access details (sent within 24 hours)',
-        'Download the bonus materials: cheat sheet, RAW files, and star maps',
-        'Install recommended apps: NightCap Camera and PhotoPills',
-        'Start planning your first shoot using the course planning guide',
+        'You will receive the Zoom link and joining details on your email within 24 hours',
+        'Block your calendar for the live session time mentioned below',
+        'Keep your phone charged and ready before the session',
+      ],
+      scheduleLines: [
+        'Batch 1: 1 Mar (Sunday)',
+        'Time: 4:00 PM',
+        'Duration: 1 to 1.5 hours (single session)',
+        'Platform: Zoom',
       ],
       supportEmail: process.env.SUPPORT_EMAIL || 'support@yourdomain.com',
     },
   };
 
-  const info = courseInfo[courseSlug] || { title: courseTitle || 'Course', nextSteps: [], supportEmail: process.env.SUPPORT_EMAIL || 'support@yourdomain.com' };
+  const info = courseInfo[courseSlug] || {
+    title: courseTitle || 'Course',
+    nextSteps: [],
+    scheduleLines: [],
+    supportEmail: process.env.SUPPORT_EMAIL || 'support@yourdomain.com',
+  };
 
   const html = `
     <!DOCTYPE html>
@@ -183,6 +200,12 @@ const buildEnrollmentEmail = ({ name, email, courseTitle, courseSlug, paymentId 
               ${info.nextSteps.map((step) => `<li>${step}</li>`).join('')}
             </ol>
           </div>` : ''}
+          ${info.scheduleLines.length ? `<h2>Live Session Schedule</h2>
+          <div class="next-steps">
+            <ul>
+              ${info.scheduleLines.map((line) => `<li>${line}</li>`).join('')}
+            </ul>
+          </div>` : ''}
           <h2>Need Help?</h2>
           <p>If you have any questions or need assistance, feel free to reach out:</p>
           <ul>
@@ -206,6 +229,9 @@ Thank you for enrolling in ${info.title}! Your payment has been confirmed.
 
 Payment ID: ${paymentId}
 Status: Confirmed
+
+Live Session Schedule:
+${info.scheduleLines.map((l) => `- ${l}`).join('\n')}
 
 Need Help?
 Email: ${info.supportEmail}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { courses, courseList } from '../data/courses';
@@ -11,11 +11,40 @@ const CoursePage = () => {
     const course = slug && courses[slug] ? courses[slug] : null;
     const [expandedLesson, setExpandedLesson] = useState(null);
     const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
+    const curriculumRef = useRef(null);
+    const didAutoExpandRef = useRef(false);
 
     // Always scroll to top when navigating to a course page
     useEffect(() => {
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }, [slug]);
+
+    useEffect(() => {
+        didAutoExpandRef.current = false;
+        setExpandedLesson(null);
+    }, [slug]);
+
+    useEffect(() => {
+        if (!course || !curriculumRef.current) return;
+        if (!('IntersectionObserver' in window)) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                if (!entry?.isIntersecting) return;
+                if (didAutoExpandRef.current) return;
+                if (expandedLesson !== null) return;
+                if (!course.curriculum?.length) return;
+
+                didAutoExpandRef.current = true;
+                setExpandedLesson(course.curriculum[0].id);
+            },
+            { threshold: 0.2 }
+        );
+
+        observer.observe(curriculumRef.current);
+        return () => observer.disconnect();
+    }, [course, expandedLesson]);
 
     const toggleLesson = (id) => {
         setExpandedLesson(expandedLesson === id ? null : id);
@@ -154,8 +183,39 @@ const CoursePage = () => {
                 </div>
             </section>
 
-            <section className="course-curriculum">
+            <section className="course-curriculum" ref={curriculumRef}>
                 <h2>Course Curriculum</h2>
+                {course.slug === 'masterclass' ? (
+                    <div className="examples-intro">
+                        <p>
+                            This course is delivered as <strong>live online lectures</strong>, so you can attend from the comfort of your home.
+                        </p>
+                        <div>
+                            <strong>Batch schedule</strong>
+                            <ul>
+                                <li><strong>Starts:</strong> 28 Feb (Saturday)</li>
+                                <li><strong>Days:</strong> Every weekend (Sat &amp; Sun), one session per day</li>
+                                <li><strong>Total:</strong> 8 sessions across 4 weekends (≈ 1 month)</li>
+                                <li><strong>Time:</strong> 11:00 AM</li>
+                                <li><strong>Recording:</strong> Included for all live sessions</li>
+                            </ul>
+                        </div>
+                    </div>
+                ) : course.slug === 'mobile' ? (
+                    <div className="examples-intro">
+                        <p>
+                            This course is delivered as a <strong>live online lecture</strong>, so you can attend from the comfort of your home.
+                        </p>
+                        <div>
+                            <strong>Batch schedule</strong>
+                            <ul>
+                                <li><strong>Date:</strong> 1 Mar (Sunday)</li>
+                                <li><strong>Time:</strong> 4:00 PM</li>
+                                <li><strong>Duration:</strong> 1 to 1.5 hours (single session)</li>
+                            </ul>
+                        </div>
+                    </div>
+                ) : null}
                 <div className="accordion-container">
                     {course.curriculum.map((lesson) => (
                         <div key={lesson.id} className="accordion-item">
