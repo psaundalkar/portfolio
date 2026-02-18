@@ -18,7 +18,7 @@ const loadRazorpayScript = () => {
 };
 
 const EnrollmentModal = ({ course, onClose }) => {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', smartphone: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', smartphone: '', coupon: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -121,6 +121,7 @@ const EnrollmentModal = ({ course, onClose }) => {
           email: form.email,
           contact: form.phone,
           smartphone: course.slug === 'mobile' ? form.smartphone : undefined,
+          coupon: form.coupon?.trim() ? form.coupon.trim() : undefined,
         }),
       });
       const data = await res.json();
@@ -214,6 +215,18 @@ const EnrollmentModal = ({ course, onClose }) => {
                     onChange={handleChange}
                     placeholder="10-digit mobile number"
                     autoComplete="tel"
+                    disabled={loading}
+                  />
+                </label>
+                <label>
+                  Coupon / Voucher
+                  <input
+                    type="text"
+                    name="coupon"
+                    value={form.coupon}
+                    onChange={handleChange}
+                    placeholder="Optional"
+                    autoComplete="off"
                     disabled={loading}
                   />
                 </label>

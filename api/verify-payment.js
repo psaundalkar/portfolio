@@ -77,6 +77,7 @@ const appendEnrollmentToSheet = async (enrollmentData) => {
       enrollmentData.currency,
       enrollmentData.orderId,
       enrollmentData.paymentId,
+      enrollmentData.coupon || '',
     ],
   ];
 
@@ -308,6 +309,7 @@ export default async function handler(req, res) {
       email: order.notes?.email || payment.email || 'unknown@example.com',
       phone: order.notes?.contact || payment.contact || '',
       smartphone: order.notes?.smartphone || '',
+      coupon: order.notes?.coupon || '',
       amount: order.amount,
       currency: order.currency,
     };

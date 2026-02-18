@@ -244,6 +244,17 @@
     transform: translateY(0);
 }
 
+@media (hover: none), (pointer: coarse) {
+    .example-overlay {
+        opacity: 1;
+    }
+
+    .example-overlay p {
+        font-size: 0.95rem;
+        transform: translateY(0);
+    }
+}
+
 @media (max-width: 1024px) {
     .layout-masterclass .examples-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -291,7 +302,13 @@
     }
 
     .example-overlay {
-        display: none;
+        opacity: 1;
+        padding: 12px;
+        display: flex;
+    }
+
+    .example-overlay p {
+        font-size: 0.85rem;
     }
 }
 
