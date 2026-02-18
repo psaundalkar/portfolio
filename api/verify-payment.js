@@ -123,7 +123,7 @@ const buildEnrollmentEmail = ({ name, email, courseTitle, courseSlug, paymentId 
     masterclass: {
       title: 'Astrophotography Masterclass',
       nextSteps: [
-        'You will receive the Zoom link and joining details on your email within 24 hours',
+        'Zoom link will be shared 2 days before the start of the course',
         'Block your calendar for the live session schedule mentioned below',
         'Download the course materials and RAW practice files (shared via email)',
       ],
@@ -140,7 +140,7 @@ const buildEnrollmentEmail = ({ name, email, courseTitle, courseSlug, paymentId 
     mobile: {
       title: 'Mobile Astrophotography',
       nextSteps: [
-        'You will receive the Zoom link and joining details on your email within 24 hours',
+        'Zoom link will be shared 2 days before the start of the course',
         'Block your calendar for the live session time mentioned below',
         'Keep your phone charged and ready before the session',
       ],
