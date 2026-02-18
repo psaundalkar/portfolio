@@ -60,7 +60,7 @@ const getGoogleSheetsClient = async () => {
   const auth = new google.auth.JWT({
     email: clientEmail,
     key: privateKey,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   });
 
   await auth.authorize();
@@ -79,6 +79,8 @@ const resolveSheetTabName = (courseSlug) => {
   return dslrTab;
 };
 
+const resolveCouponsTabName = () => process.env.GOOGLE_SHEETS_TAB_COUPONS || 'Coupons';
+
 const MASTERCLASS_ONE_TIME_COUPONS = new Set([
   'AM200-7K3P9Q',
   'AM200-X2M8LD',
@@ -92,21 +94,45 @@ const MASTERCLASS_ONE_TIME_COUPONS = new Set([
   'AM200-M2F8VP',
 ]);
 
-const isCouponUsed = async ({ courseSlug, coupon }) => {
+const isCouponUsed = async ({ coupon }) => {
   const client = await getGoogleSheetsClient();
   if (!client) return null;
 
-  const sheetName = resolveSheetTabName(courseSlug);
+  const sheetName = resolveCouponsTabName();
   const { spreadsheetId, sheets } = client;
 
   const resp = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!L:L`,
+    range: `${sheetName}!B:B`,
   });
 
   const values = resp.data?.values || [];
   const normalizedCoupon = String(coupon || '').trim().toUpperCase();
   return values.some((row) => (row?.[0] ? String(row[0]).trim().toUpperCase() : '') === normalizedCoupon);
+};
+
+const reserveCoupon = async ({ coupon, courseSlug, email, contact, receipt }) => {
+  const client = await getGoogleSheetsClient();
+  if (!client) return { ok: false, reason: 'sheets_unavailable' };
+
+  const sheetName = resolveCouponsTabName();
+  const { spreadsheetId, sheets } = client;
+
+  try {
+    await sheets.spreadsheets.values.append({
+      spreadsheetId,
+      range: `${sheetName}!A1`,
+      valueInputOption: 'USER_ENTERED',
+      insertDataOption: 'INSERT_ROWS',
+      requestBody: {
+        values: [[new Date().toISOString(), coupon, courseSlug, email || '', contact || '', receipt || '', 'reserved']],
+      },
+    });
+
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, reason: 'append_failed', error: e };
+  }
 };
 
 export default async function handler(req, res) {
@@ -155,7 +181,7 @@ export default async function handler(req, res) {
         return;
       }
 
-      const alreadyUsed = await isCouponUsed({ courseSlug, coupon: normalizedCoupon });
+      const alreadyUsed = await isCouponUsed({ coupon: normalizedCoupon });
       if (alreadyUsed === null) {
         sendJson(res, 500, { error: 'Coupon validation is temporarily unavailable. Please try again later.' });
         return;
@@ -175,10 +201,27 @@ export default async function handler(req, res) {
       mobile: 'Mobile Astrophotography',
     };
 
+    const receipt = `course_${courseSlug}_${Date.now()}`;
+
+    if (wantsCoupon && isMasterclass) {
+      const reservation = await reserveCoupon({
+        coupon: normalizedCoupon,
+        courseSlug,
+        email,
+        contact,
+        receipt,
+      });
+
+      if (!reservation.ok) {
+        sendJson(res, 500, { error: 'Coupon validation is temporarily unavailable. Please try again later.' });
+        return;
+      }
+    }
+
     const order = await razorpay.orders.create({
       amount: orderAmount,
       currency: currency.toUpperCase(),
-      receipt: `course_${courseSlug}_${Date.now()}`,
+      receipt,
       notes: {
         courseSlug,
         courseTitle: courseTitles[courseSlug] || 'Course',
