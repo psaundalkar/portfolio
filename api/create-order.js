@@ -81,6 +81,11 @@ const resolveSheetTabName = (courseSlug) => {
 
 const resolveCouponsTabName = () => process.env.GOOGLE_SHEETS_TAB_COUPONS || 'Coupons';
 
+const toA1SheetName = (sheetName) => {
+  const s = String(sheetName || '').trim();
+  return `'${s.replace(/'/g, "''")}'`;
+};
+
 const MASTERCLASS_ONE_TIME_COUPONS = new Set([
   'AM200-7K3P9Q',
   'AM200-X2M8LD',
@@ -101,10 +106,18 @@ const isCouponUsed = async ({ coupon }) => {
   const sheetName = resolveCouponsTabName();
   const { spreadsheetId, sheets } = client;
 
-  const resp = await sheets.spreadsheets.values.get({
-    spreadsheetId,
-    range: `${sheetName}!B:B`,
-  });
+  let resp;
+  try {
+    resp = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: `${toA1SheetName(sheetName)}!B:B`,
+    });
+  } catch (e) {
+    if (e?.code === 400 && String(e?.message || '').includes('Unable to parse range')) {
+      return null;
+    }
+    throw e;
+  }
 
   const values = resp.data?.values || [];
   const normalizedCoupon = String(coupon || '').trim().toUpperCase();
@@ -121,7 +134,7 @@ const reserveCoupon = async ({ coupon, courseSlug, email, contact, receipt }) =>
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId,
-      range: `${sheetName}!A1`,
+      range: `${toA1SheetName(sheetName)}!A1`,
       valueInputOption: 'USER_ENTERED',
       insertDataOption: 'INSERT_ROWS',
       requestBody: {
