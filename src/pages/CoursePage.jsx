@@ -13,6 +13,8 @@ const CoursePage = () => {
     const [showEnrollmentModal, setShowEnrollmentModal] = useState(false);
     const curriculumRef = useRef(null);
     const didAutoExpandRef = useRef(false);
+    const [activeExampleIndex, setActiveExampleIndex] = useState(null);
+    const [isCoarsePointer, setIsCoarsePointer] = useState(false);
 
     // Always scroll to top when navigating to a course page
     useEffect(() => {
@@ -22,7 +24,23 @@ const CoursePage = () => {
     useEffect(() => {
         didAutoExpandRef.current = false;
         setExpandedLesson(null);
+        setActiveExampleIndex(null);
     }, [slug]);
+
+    useEffect(() => {
+        if (!('matchMedia' in window)) return;
+
+        const mq = window.matchMedia('(hover: none), (pointer: coarse)');
+        const update = () => setIsCoarsePointer(Boolean(mq.matches));
+        update();
+
+        if (mq.addEventListener) {
+            mq.addEventListener('change', update);
+            return () => mq.removeEventListener('change', update);
+        }
+        mq.addListener(update);
+        return () => mq.removeListener(update);
+    }, []);
 
     useEffect(() => {
         if (!course || !curriculumRef.current) return;
@@ -137,7 +155,12 @@ const CoursePage = () => {
             </header>
 
             {course.examples && (
-                <section className={`course-examples ${course.slug === 'mobile' ? 'layout-mobile-course' : 'layout-masterclass'}`}>
+                <section
+                    className={`course-examples ${course.slug === 'mobile' ? 'layout-mobile-course' : 'layout-masterclass'}`}
+                    onClick={() => {
+                        if (isCoarsePointer) setActiveExampleIndex(null);
+                    }}
+                >
                     <motion.div
                         className="examples-intro"
                         initial={{ opacity: 0, y: 20 }}
@@ -155,11 +178,16 @@ const CoursePage = () => {
                         {course.examples.map((ex, i) => (
                             <motion.div
                                 key={i}
-                                className="example-card"
+                                className={`example-card ${activeExampleIndex === i ? 'is-active' : ''}`}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: i * 0.1 }}
                                 viewport={{ once: true }}
+                                onClick={(e) => {
+                                    if (!isCoarsePointer) return;
+                                    e.stopPropagation();
+                                    setActiveExampleIndex((prev) => (prev === i ? null : i));
+                                }}
                             >
                                 <img src={ex.image} alt={ex.caption} loading="lazy" />
                                 <div className="example-overlay">

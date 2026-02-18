@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
@@ -8,6 +8,30 @@ import ContactPage from './pages/ContactPage';
 import './index.css';
 
 function App() {
+    useEffect(() => {
+        const preventImageContextMenu = (e) => {
+            const target = e.target;
+            if (target && target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        };
+
+        const preventImageDrag = (e) => {
+            const target = e.target;
+            if (target && target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        };
+
+        document.addEventListener('contextmenu', preventImageContextMenu);
+        document.addEventListener('dragstart', preventImageDrag);
+
+        return () => {
+            document.removeEventListener('contextmenu', preventImageContextMenu);
+            document.removeEventListener('dragstart', preventImageDrag);
+        };
+    }, []);
+
     return (
         <Router>
             <div className="app-container">

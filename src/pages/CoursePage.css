@@ -232,6 +232,10 @@
     opacity: 1;
 }
 
+.example-card.is-active .example-overlay {
+    opacity: 1;
+}
+
 .example-overlay p {
     color: white;
     font-size: 1.1rem;
@@ -244,14 +248,19 @@
     transform: translateY(0);
 }
 
+.example-card.is-active .example-overlay p {
+    transform: translateY(0);
+}
+
 @media (hover: none), (pointer: coarse) {
     .example-overlay {
-        opacity: 1;
+        opacity: 0;
     }
 
     .example-overlay p {
-        font-size: 0.95rem;
-        transform: translateY(0);
+        font-size: 0.78rem;
+        line-height: 1.35;
+        transform: translateY(10px);
     }
 }
 
@@ -302,13 +311,14 @@
     }
 
     .example-overlay {
-        opacity: 1;
-        padding: 12px;
+        opacity: 0;
+        padding: 10px;
         display: flex;
     }
 
     .example-overlay p {
-        font-size: 0.85rem;
+        font-size: 0.7rem;
+        line-height: 1.3;
     }
 }
 
