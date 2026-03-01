@@ -221,7 +221,8 @@ const CoursePage = () => {
                         <div>
                             <strong>Batch schedule</strong>
                             <ul>
-                                <li><strong>Starts:</strong> 28 Feb (Saturday)</li>
+                                <li><strong>Batch 1:</strong> Started 28 Feb (registrations closed)</li>
+                                <li><strong>Next batch starts:</strong> 4 Apr (Saturday)</li>
                                 <li><strong>Days:</strong> Every weekend (Sat &amp; Sun), one session per day</li>
                                 <li><strong>Total:</strong> 8 sessions across 4 weekends (≈ 1 month)</li>
                                 <li><strong>Time:</strong> 11:00 AM</li>

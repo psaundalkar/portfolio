@@ -128,7 +128,8 @@ const buildEnrollmentEmail = ({ name, email, courseTitle, courseSlug, paymentId 
         'Download the course materials and RAW practice files (shared via email)',
       ],
       scheduleLines: [
-        'Batch 1 starts: 28 Feb (Saturday)',
+        'Batch 1: Started 28 Feb (registrations closed)',
+        'Next batch starts: 4 Apr (Saturday)',
         'Schedule: Every weekend (Sat & Sun), one session per day',
         'Total: 8 sessions across 4 weekends (≈ 1 month)',
         'Time: 11:00 AM',
